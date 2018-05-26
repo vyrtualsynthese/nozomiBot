@@ -3,11 +3,6 @@
   "version": "0.0.1",
   "description": "Ben c'est nozomibot quoi...",
   "main": "app.js",
-  "license": "WTFPL",
-  "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
-  },
   "dependencies": {
     "dotenv": "^5.0.1",
     "tmi.js": "^1.2.1"
