@@ -4,17 +4,26 @@
   "description": "Ben c'est nozomibot quoi...",
   "main": "app.js",
   "dependencies": {
+    "cross-env": "^5.1.6",
     "dotenv": "^5.0.1",
     "tmi.js": "^1.2.1"
   },
+  "scripts": {
+    "start": "node app.js",
+    "dev": "cross-env NODE_ENV=dev nodemon app.js",
+    "test": "mocha"
+  },
   "devDependencies": {
+    "chai": "^4.1.2",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
-    "nodemon": "^1.17.5"
+    "mocha": "^5.2.0",
+    "nodemon": "^1.17.5",
+    "sinon": "^5.0.10"
   },
   "author": "Thomas Talbot <thomas.talbot@fauya.fr>"
 }
