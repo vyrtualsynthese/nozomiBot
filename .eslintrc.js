@@ -5,6 +5,7 @@ module.exports = {
     "extends": "standard",
     "rules": {
         "indent": ["error", 4, { "SwitchCase": 1 }],
-        "semi": ["error", "always"]
+        "semi": ["error", "always"],
+        "operator-linebreak": ["error", "before"],
     }
 };
