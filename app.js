@@ -8,7 +8,7 @@ if (!process.env.NODE_ENV)
 
 const fs = require('fs');
 
-const pino = require('pino')({
+const logger = require('pino')({
     extreme: true
 }, fs.createWriteStream(`./var/log/${process.env.NODE_ENV}.log`, {'flags': 'a'}));
 
@@ -22,24 +22,24 @@ const CreateStaticCommandCommand = require("./lib/Command/CreateStaticCommandCom
 const TwitchConnectorIO = require('./lib/Connector/TwitchConnectorIO');
 const StaticCommandRepository = require('./lib/Database/StaticCommandRepository');
 
-const dbManager = new DatabaseManager(pino);
+const dbManager = new DatabaseManager(logger);
 await dbManager.init();
 const staticCommandRepo = new StaticCommandRepository(dbManager);
 
 const connectorManager = new ConnectorManager();
 
-const scio = new StandardConnectorIO(process.env.EXIT_COMMAND, dbManager, pino);
+const scio = new StandardConnectorIO(process.env.EXIT_COMMAND, dbManager, logger);
 await scio.init();
 connectorManager.addConnector(scio);
 
-const tcio = new TwitchConnectorIO(pino);
+const tcio = new TwitchConnectorIO(logger);
 await tcio.init();
 connectorManager.addConnector(tcio);
 
-const commandHandler = new CommandHandler(connectorManager);
-commandHandler.registerCommand(new EchoCommand(pino));
-commandHandler.registerCommand(new OnlyStandardCommand(pino));
-commandHandler.registerCommand(new CreateStaticCommandCommand(pino, staticCommandRepo));
+const commandHandler = new CommandHandler(connectorManager, staticCommandRepo, logger);
+commandHandler.registerCommand(new EchoCommand(logger));
+commandHandler.registerCommand(new OnlyStandardCommand(logger));
+commandHandler.registerCommand(new CreateStaticCommandCommand(logger, staticCommandRepo));
 
 console.log(`Nozomibot is running... command "${scio.exitCommand}" for quit.`);
 
