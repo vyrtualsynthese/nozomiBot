@@ -14,6 +14,7 @@ const StandardConnectorIO = require("./lib/Connector/StandardConnectorIO");
 const ConnectorManager = require("./lib/Connector/ConnectorManager");
 const CommandHandler = require("./lib/Command/CommandHandler");
 const EchoCommand = require("./lib/Command/EchoCommand");
+const OnlyStandardCommand = require("./lib/Command/OnlyStandardCommand");
 const TwitchConnectorIO = require('./lib/Connector/TwitchConnectorIO');
 
 const exitCommand = 'exit';
@@ -24,5 +25,6 @@ connectorManager.addConnector(new TwitchConnectorIO(pino));
 
 const commandHandler = new CommandHandler(connectorManager);
 commandHandler.registerCommand(new EchoCommand(pino));
+commandHandler.registerCommand(new OnlyStandardCommand(pino));
 
-console.log('Nozomibot is running... command "exit" for quit.');
+console.log(`Nozomibot is running... command "${exitCommand}" for quit.`);

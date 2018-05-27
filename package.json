@@ -8,7 +8,8 @@
     "dotenv": "^5.0.1",
     "pino": "^4.16.1",
     "pino-syslog": "^1.2.0",
-    "tmi.js": "^1.2.1"
+    "tmi.js": "^1.2.1",
+    "yargs-parser": "^10.0.0"
   },
   "scripts": {
     "start": "node app.js",
