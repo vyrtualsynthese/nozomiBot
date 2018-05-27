@@ -17,5 +17,4 @@ Cache avec Redis ? (ex : liste des 1000 utilisateurs machin)
 
 - Pouvoir créer des commandes statiques via une commande
 - Pouvoir invoquer une commande statique
-- Pouvoir invoquer une commande seulement sur certains ConnectorIO (supports() ?)
 - Pouvoir restreindre les droits d'une commande : gestion de rôles uniformisés selon le ConnectorIO
