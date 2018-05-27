@@ -1,12 +1,21 @@
-Pino : logger
 
 Entrées/Sorties : std(in/out), twitch, discord, youtube live
-généralisation entrée/sortie => BotIO (BotInput + BotOutput)
+généralisation entrée/sortie => ConnectorIO
 
 CommandHandler
-interface IBotCommand (supports() handle():CommandResponse)
-- TwitterListBotCommand implement IBotCommand
+abstract Command (supports(CommandExchange) handle(CommandExchange):CommandResponse)
+exemple : TwitterListBotCommand extends Command
 
-BotIO::write(CommandResponse);
+ConnectorIO::write(CommandResponse);
 
+-----------------------------------------
+
+Pino : logger
 Cache avec Redis ? (ex : liste des 1000 utilisateurs machin)
+
+-----------------------------------------
+
+- Pouvoir créer des commandes statiques via une commande
+- Pouvoir invoquer une commande statique
+- Pouvoir invoquer une commande seulement sur certains ConnectorIO (supports() ?)
+- Pouvoir restreindre les droits d'une commande : gestion de rôles uniformisés selon le ConnectorIO
