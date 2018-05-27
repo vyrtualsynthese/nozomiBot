@@ -18,9 +18,9 @@ const ConnectorManager = require("./lib/Connector/ConnectorManager");
 const CommandHandler = require("./lib/Command/CommandHandler");
 const EchoCommand = require("./lib/Command/EchoCommand");
 const OnlyStandardCommand = require("./lib/Command/OnlyStandardCommand");
+const CreateStaticCommandCommand = require("./lib/Command/CreateStaticCommandCommand");
 const TwitchConnectorIO = require('./lib/Connector/TwitchConnectorIO');
 const StaticCommandRepository = require('./lib/Database/StaticCommandRepository');
-
 
 const dbManager = new DatabaseManager(pino);
 await dbManager.init();
@@ -39,6 +39,7 @@ connectorManager.addConnector(tcio);
 const commandHandler = new CommandHandler(connectorManager);
 commandHandler.registerCommand(new EchoCommand(pino));
 commandHandler.registerCommand(new OnlyStandardCommand(pino));
+commandHandler.registerCommand(new CreateStaticCommandCommand(pino, staticCommandRepo));
 
 console.log(`Nozomibot is running... command "${scio.exitCommand}" for quit.`);
 
