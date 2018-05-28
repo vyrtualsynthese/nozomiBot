@@ -16,12 +16,10 @@ Cache avec Redis ? (ex : liste des 1000 utilisateurs machin)
 -----------------------------------------
 ## Backlog
 
-* Pouvoir invoquer une commande statique
 * Pouvoir restreindre les droits d'une commande : gestion de rôles uniformisés selon le ConnectorIO
 * Pouvoir write sur un autre Connector que l'input
 * Pouvoir éxecuter des commandes sans input (CRON ?)
 * Pouvoir enregistrer des états de commande selon l'invoqueur (exemple : ioni tape la commande "ashucoins", retourne SA propre donnée)
-* Mettre un array de Connector possibles pour telle commande. (availableConnectors:ConnectorIO[])
 * Sécurité antispam et antilien
 * Gestion statut modérateur connector Twitch
 * README.md
@@ -45,7 +43,7 @@ Cache avec Redis ? (ex : liste des 1000 utilisateurs machin)
 * commande qui liste les commandes statiques
 * commande qui liste toutes les commandes disponibles (selon le rôle)
 * commandes pour un compteur de mort (par exemple pour les jeux try-hard)
-    * activer/désactiver le compteur ("deathcounter on/off") 
+    * activer/désactiver le compteur ("deathcounter on/off")
     * incr le nb morts ("deathcounterincr")
     * decr le nb morts ("deathcounterdecr")
     * set le nb morts ("deathcounterset X")
@@ -65,7 +63,9 @@ Cache avec Redis ? (ex : liste des 1000 utilisateurs machin)
 * "!settimezone" modifie la timezone du streamer 
 * "!whispermode on/off" toutes les réponses sont envoyées en "whisper" à l'invoqueur
 * "!kill <target>" retourne "<invoqueur> a tué <target>!" (vérifier que target est bien un viewer/modo)
-* "!random <entier>" retourne un entier aléatoire entre [[1, entier]]
+* "!roll start/end <entier>" lance une roulette entre [[1, entier]]
+* "!rollvote <entier> <mise>" voter sur le roll avec la mise
+* **"!random <entier>" retourne un entier aléatoire entre [[1, entier]]**
 * "!bits on/off" active/désactive l'annonce lorsqu'il y a un don de bits
 * "!bitsmessage <message>" set le message qui sera affiché lorsqu'il y a un don en bits. Variables : %username%, %amount%
 * "!bitsminimum <entier>" set le nombre minimal de bits pour que le message soit affiché

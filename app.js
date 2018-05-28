@@ -11,12 +11,13 @@
     }, fs.createWriteStream(`./var/log/${process.env.NODE_ENV}.log`, {'flags': 'a'}));
 
     const DatabaseManager = require('./lib/Database/DatabaseManager');
-    const StandardConnectorIO = require('./lib/Connector/StandardConnectorIO');
-    const ConnectorManager = require('./lib/Connector/ConnectorManager');
-    const CommandHandler = require('./lib/Command/CommandHandler');
-    const EchoCommand = require('./lib/Command/EchoCommand');
-    const OnlyStandardCommand = require('./lib/Command/OnlyStandardCommand');
-    const CreateStaticCommandCommand = require('./lib/Command/CreateStaticCommandCommand');
+    const StandardConnectorIO = require("./lib/Connector/StandardConnectorIO");
+    const ConnectorManager = require("./lib/Connector/ConnectorManager");
+    const CommandHandler = require("./lib/Command/CommandHandler");
+    const EchoCommand = require("./lib/Command/EchoCommand");
+    const OnlyStandardCommand = require("./lib/Command/OnlyStandardCommand");
+    const CreateStaticCommandCommand = require("./lib/Command/CreateStaticCommandCommand");
+    const RandomCommand = require("./lib/Command/RandomCommand");
     const TwitchConnectorIO = require('./lib/Connector/TwitchConnectorIO');
     const StaticCommandRepository = require('./lib/Database/StaticCommandRepository');
 
@@ -38,6 +39,7 @@
     commandHandler.registerCommand(new EchoCommand(logger));
     commandHandler.registerCommand(new OnlyStandardCommand(logger));
     commandHandler.registerCommand(new CreateStaticCommandCommand(logger, staticCommandRepo));
+    commandHandler.registerCommand(new RandomCommand(logger));
 
     console.log(`Nozomibot is running... command "${scio.exitCommand}" for quit.`);
 
