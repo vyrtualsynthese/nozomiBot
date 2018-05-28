@@ -29,11 +29,5 @@
     "nodemon": "^1.17.5",
     "sinon": "^5.0.10"
   },
-  "greenkeeper": {
-    "ignore": [
-      "hawk",
-      "har-validator"
-    ]
-  },
   "author": "Thomas Talbot <thomas.talbot@fauya.fr>"
 }
