@@ -16,16 +16,19 @@
     "start": "node app.js",
     "dev": "cross-env NODE_ENV=dev nodemon app.js",
     "lint": "./node_modules/.bin/eslint **/*.js",
-    "test": "mocha"
+    "test": "mocha && istanbul report text-summary lcov"
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "coffee-coverage": "^3.0.0",
+    "coveralls": "^3.0.1",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
+    "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
     "nodemon": "^1.17.5",
     "sinon": "^5.0.10"
