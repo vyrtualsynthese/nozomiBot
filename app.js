@@ -15,7 +15,6 @@
     const ConnectorManager = require("./lib/Connector/ConnectorManager");
     const CommandHandler = require("./lib/Command/CommandHandler");
     const EchoCommand = require("./lib/Command/EchoCommand");
-    const OnlyStandardCommand = require("./lib/Command/OnlyStandardCommand");
     const CreateStaticCommandCommand = require("./lib/Command/Commands/CreateStaticCommandCommand");
     const ListStaticCommandsCommand = require("./lib/Command/Commands/ListStaticCommandsCommand");
     const ListCommandsCommand = require("./lib/Command/Commands/ListCommandsCommand");
@@ -43,7 +42,6 @@
     const commandHandler = new CommandHandler(connectorManager, staticCommandRepo, logger);
     commandHandler.registerCommand(new RandomCommand(logger));
     commandHandler.registerCommand(new EchoCommand(logger));
-    commandHandler.registerCommand(new OnlyStandardCommand(logger));
     commandHandler.registerCommand(new ListStaticCommandsCommand(logger, staticCommandRepo));
     commandHandler.registerCommand(new ListCommandsCommand(logger, staticCommandRepo, commandHandler));
     commandHandler.registerCommand(new CreateStaticCommandCommand(logger, staticCommandRepo));
