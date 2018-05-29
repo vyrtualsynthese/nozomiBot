@@ -11,7 +11,7 @@ ConnectorIO::write(CommandResponse);
 -----------------------------------------
 ## Trucs à penser
 
-Cache avec Redis ? (ex : liste des 1000 utilisateurs machin)
+Cache avec Redis ? (ex : liste des 1000 derniers utilisateurs)
 
 -----------------------------------------
 ## Backlog
@@ -40,8 +40,8 @@ Cache avec Redis ? (ex : liste des 1000 utilisateurs machin)
 -----------------------------------------
 ## Twitch commands list
 
-* commande qui liste les commandes statiques
-* commande qui liste toutes les commandes disponibles (selon le rôle)
+* ~~commande qui liste les commandes statiques~~
+* ~~commande qui liste toutes les commandes disponibles~~ (selon le rôle)
 * commandes pour un compteur de mort (par exemple pour les jeux try-hard)
     * activer/désactiver le compteur ("deathcounter on/off")
     * incr le nb morts ("deathcounterincr")
@@ -49,10 +49,10 @@ Cache avec Redis ? (ex : liste des 1000 utilisateurs machin)
     * set le nb morts ("deathcounterset X")
     * demander le nb morts ("deathcounter")
 * "!last" pour avoir les dernières connexions viewers 
-* "!game" pour avoir le nom du jeu actuel
-* "!title" pour le titre du stream si en live
+* ~~"!game" pour avoir le nom du jeu actuel~~
+* ~~"!title" pour le titre du stream + nom du jeu si en live~~
 * "!playtime" pour le uptime du jeu actuel en live
-* "!uptime" pour le uptime total du live  
+* "!uptime" pour le uptime total du live
 * "!pause" pour ne plus répondre aux commandes
 * "!resume" pour enlever "pause"
 * "!mute" pour ne pas envoyer de réponse
@@ -65,7 +65,7 @@ Cache avec Redis ? (ex : liste des 1000 utilisateurs machin)
 * "!kill <target>" retourne "<invoqueur> a tué <target>!" (vérifier que target est bien un viewer/modo)
 * "!roll start/end <entier>" lance une roulette entre [[1, entier]]
 * "!rollvote <entier> <mise>" voter sur le roll avec la mise
-* **"!random <entier>" retourne un entier aléatoire entre [[1, entier]]**
+* ~~"!random <entier>" retourne un entier aléatoire entre [[1, entier]]~~
 * "!bits on/off" active/désactive l'annonce lorsqu'il y a un don de bits
 * "!bitsmessage <message>" set le message qui sera affiché lorsqu'il y a un don en bits. Variables : %username%, %amount%
 * "!bitsminimum <entier>" set le nombre minimal de bits pour que le message soit affiché
