@@ -22,7 +22,7 @@
     const CommandsCommand = require("./lib/Command/Commands/CommandsCommand");
     const RandomCommand = require("./lib/Command/RandomCommand");
     const TwitchConnectorIO = require('./lib/Connector/TwitchConnectorIO');
-    const StaticCommandRepository = require('./lib/Database/StaticCommandRepository');
+    const StaticCommandRepository = require('./lib/Database/Repository/StaticCommandRepository');
 
     const dbManager = new DatabaseManager(logger);
     await dbManager.init();
