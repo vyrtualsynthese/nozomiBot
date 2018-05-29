@@ -19,5 +19,4 @@ env:
     - EXIT_COMMAND=exit
 script:
   - yarn lint
-
-  # - npm test : A decommenter une fois que les mock seront en place pour éviter de générer des erreurs.
+  - yarn test
