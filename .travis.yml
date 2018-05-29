@@ -14,6 +14,7 @@ install:
 #  - mongo mydb_test --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
 
 env:
+  global:
     - NODE_ENV=dev
     - EXIT_COMMAND=exit
 script:
