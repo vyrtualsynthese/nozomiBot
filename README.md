@@ -2,7 +2,7 @@
 
 # NozomiBot
 
-This is a projet for a Twitch/Youtube/Discord bot. Despite other bots, this one focus on easy setup and ready to use.
+This is a project for a Twitch/Youtube/Discord bot. Despite other bots, this one focus on easy setup and ready to use.
 
 ## Getting Started
 
@@ -12,31 +12,24 @@ These instructions will get you a copy of the project up and running on your loc
 
 What things you need to install the software and how to install them
 
-```
-Give examples
-```
+* Docker : https://docs.docker.com/install/
+* Docker compose (for development only) : https://docs.docker.com/compose/install/
+* Yarn : https://yarnpkg.com/lang/en/docs/install/
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
+* Copy `.env.dist` to `.env` : `cp .env.dist .env`
+* Configure `.env` : `vim .env`
+* Set the rights to `var` (`1000` is the user `node` in the node container) : `setfacl -dR -m u:$(id -u):rwX -m u:1000:rwX var`
+* Install the dependencies : `yarn install`
+* Launch Docker containers :
+    * development env : `docker-compose up -d`
+    * production env : `docker stack deploy -c docker-compose.yml <name>`
+* Use `docker container attach <containerid>` to put commands from the console. [See the official documentation](https://docs.docker.com/engine/reference/commandline/attach/#parent-command).
 
 ## Running in dev
 
-`npm run dev`
+`yarn dev`
 
 ## Running the tests
 
@@ -61,17 +54,16 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ## Authors
 
 * **Valentin RONTEIX** - *Initial work, Product Owner* - [vyrtualsynthese](https://github.com/vyrtualsynthese)
-* **Thomas Talbot** - **Senior Dev** - [Ioni](https://github.com/vyrtualsynthese)
+* **Thomas TALBOT** - **Senior Dev** - [Ioni](https://github.com/Ioni14)
 
 See also the list of [contributors](https://github.com/vyrtualsynthese/nozomiBot/graphs/contributors) who participated in this project.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
 ## Acknowledgments
 
 * Hat tip to anyone whose code was used
 * Inspiration
 * etc
-
