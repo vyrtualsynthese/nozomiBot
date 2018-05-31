@@ -3,4 +3,5 @@ node_modules
 .env
 /var
 !/var/log/.gitkeep
+package-lock.json
 /coverage
