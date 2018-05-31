@@ -18,6 +18,7 @@ services:
         stdin_open: true
         tty: true
         command: "yarn start"
+        restart: unless-stopped
     mongo:
         image: mongo:3.6
         hostname: ${COMPOSE_PROJECT_NAME}-mongo
@@ -29,3 +30,4 @@ services:
             - app
         ports:
             - 127.0.0.1:27017:27017
+        restart: unless-stopped
