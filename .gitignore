@@ -1,6 +1,6 @@
 .idea
 node_modules
 .env
-var
-package-lock.json
+/var
+!/var/log/.gitkeep
 /coverage
