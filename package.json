@@ -18,7 +18,7 @@
     "dev": "cross-env NODE_ENV=dev nodemon app.js",
     "lint": "./node_modules/.bin/eslint **/*.js",
     "test": "istanbul --recursive cover node_modules/mocha/bin/_mocha -- --recursive",
-    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "devDependencies": {
     "chai": "^4.1.2",
