@@ -1,0 +1,5 @@
+/coverage
+.idea
+node_modules
+.env
+/var
