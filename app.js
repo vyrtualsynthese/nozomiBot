@@ -11,6 +11,7 @@
     }, fs.createWriteStream(`./var/log/${process.env.NODE_ENV}.log`, {'flags': 'a'}));
 
     const DatabaseManager = require('./lib/Database/DatabaseManager');
+    const CacheManager = require('./lib/CacheManager');
     const StandardConnectorIO = require('./lib/Connector/StandardConnectorIO');
     const ConnectorManager = require('./lib/Connector/ConnectorManager');
     const CommandHandler = require('./lib/Command/CommandHandler');
@@ -29,13 +30,16 @@
     await dbManager.init();
     const staticCommandRepo = new StaticCommandRepository(dbManager);
 
+    const cacheManager = new CacheManager(logger);
+    await cacheManager.init();
+
     const connectorManager = new ConnectorManager();
 
-    const scio = new StandardConnectorIO(process.env.EXIT_COMMAND, dbManager, logger);
+    const scio = new StandardConnectorIO(process.env.EXIT_COMMAND, dbManager, cacheManager, logger);
     await scio.init();
     connectorManager.addConnector(scio);
 
-    const tcio = new TwitchConnectorIO(logger);
+    const tcio = new TwitchConnectorIO(logger, cacheManager);
     await tcio.init();
     connectorManager.addConnector(tcio);
 
