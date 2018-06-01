@@ -3,6 +3,7 @@ networks:
     app: ~
 volumes:
     dbdata: ~
+#    cachedata: ~
 services:
     node:
         image: node:8-alpine
@@ -19,6 +20,9 @@ services:
         tty: true
         command: "yarn start"
         restart: unless-stopped
+        depends_on:
+          - mongo
+          - redis
     mongo:
         image: mongo:3.6
         hostname: ${COMPOSE_PROJECT_NAME}-mongo
@@ -30,4 +34,15 @@ services:
             - app
         ports:
             - 127.0.0.1:27017:27017
+        restart: unless-stopped
+    redis:
+        image: redis:4.0-alpine
+        hostname: ${COMPOSE_PROJECT_NAME}-redis
+#        volumes:
+#            - cachedata:/data
+#        command: "redis-server --appendonly yes"
+        networks:
+            - app
+        ports:
+            - 127.0.0.1:6379:6379
         restart: unless-stopped
