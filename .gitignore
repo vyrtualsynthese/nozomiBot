@@ -3,4 +3,8 @@ node_modules
 .env
 /var
 !/var/log/.gitkeep
+<<<<<<< HEAD
+=======
+package-lock.json
+>>>>>>> 4ef899461d2227e14204076bd17b2fa337f8a0e0
 /coverage
