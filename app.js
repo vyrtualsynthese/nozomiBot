@@ -25,10 +25,12 @@
     const GameCommand = require('./lib/Command/GameCommand');
     const TwitchConnectorIO = require('./lib/Connector/TwitchConnectorIO');
     const StaticCommandRepository = require('./lib/Database/Repository/StaticCommandRepository');
+    const UserRepository = require('./lib/Database/Repository/UserRepository');
 
     const dbManager = new DatabaseManager(logger);
     await dbManager.init();
     const staticCommandRepo = new StaticCommandRepository(dbManager);
+    const userRepo = new UserRepository(dbManager);
 
     const cacheManager = new CacheManager(logger);
     await cacheManager.init();
@@ -39,7 +41,7 @@
     await scio.init();
     connectorManager.addConnector(scio);
 
-    const tcio = new TwitchConnectorIO(logger, cacheManager);
+    const tcio = new TwitchConnectorIO(logger, cacheManager, userRepo);
     await tcio.init();
     connectorManager.addConnector(tcio);
 
