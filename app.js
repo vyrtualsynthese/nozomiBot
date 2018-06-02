@@ -7,7 +7,7 @@
     const fs = require('fs');
 
     const logger = require('pino')({
-        extreme: true
+        extreme: false
     }, fs.createWriteStream(`./var/log/${process.env.NODE_ENV}.log`, {'flags': 'a'}));
 
     const DatabaseManager = require('./lib/Database/DatabaseManager');
