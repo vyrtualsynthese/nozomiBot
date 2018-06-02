@@ -18,7 +18,7 @@ services:
             - app
         stdin_open: true
         tty: true
-        command: "yarn start"
+        entrypoint: ["node", "app.js"]
         restart: unless-stopped
         depends_on:
           - mongo

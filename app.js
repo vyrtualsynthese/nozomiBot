@@ -7,7 +7,7 @@
     const fs = require('fs');
 
     const logger = require('pino')({
-        extreme: true
+        extreme: false
     }, fs.createWriteStream(`./var/log/${process.env.NODE_ENV}.log`, {'flags': 'a'}));
 
     const DatabaseManager = require('./lib/Database/DatabaseManager');
@@ -23,12 +23,15 @@
     const RandomCommand = require('./lib/Command/RandomCommand');
     const TitleCommand = require('./lib/Command/TitleCommand');
     const GameCommand = require('./lib/Command/GameCommand');
+    const LastCommand = require('./lib/Command/LastCommand');
     const TwitchConnectorIO = require('./lib/Connector/TwitchConnectorIO');
     const StaticCommandRepository = require('./lib/Database/Repository/StaticCommandRepository');
+    const UserRepository = require('./lib/Database/Repository/UserRepository');
 
     const dbManager = new DatabaseManager(logger);
     await dbManager.init();
     const staticCommandRepo = new StaticCommandRepository(dbManager);
+    const userRepo = new UserRepository(dbManager);
 
     const cacheManager = new CacheManager(logger);
     await cacheManager.init();
@@ -39,7 +42,7 @@
     await scio.init();
     connectorManager.addConnector(scio);
 
-    const tcio = new TwitchConnectorIO(logger, cacheManager);
+    const tcio = new TwitchConnectorIO(logger, cacheManager, userRepo);
     await tcio.init();
     connectorManager.addConnector(tcio);
 
@@ -52,6 +55,7 @@
     commandHandler.registerCommand(new CommandsCommand(logger));
     commandHandler.registerCommand(new TitleCommand(logger));
     commandHandler.registerCommand(new GameCommand(logger));
+    commandHandler.registerCommand(new LastCommand(logger, userRepo));
 
     console.log(`Nozomibot is running... command "${scio.exitCommand}" for quit.`);
 

@@ -6,6 +6,7 @@
   "dependencies": {
     "cross-env": "^5.1",
     "dotenv": "^5.0",
+    "moment": "^2.22.2",
     "mongoose": "^5.1",
     "pino": "^4.17",
     "pino-syslog": "^1.2",
