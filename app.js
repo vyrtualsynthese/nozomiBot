@@ -27,6 +27,8 @@
     const TwitchConnectorIO = require('./lib/Connector/TwitchConnectorIO');
     const StaticCommandRepository = require('./lib/Database/Repository/StaticCommandRepository');
     const UserRepository = require('./lib/Database/Repository/UserRepository');
+    const WebhookServer = require('./lib/Webhook/WebhookServer');
+    const TwitchWebhook = require('./lib/Webhook/TwitchWebhook');
 
     const dbManager = new DatabaseManager(logger);
     await dbManager.init();
@@ -36,9 +38,14 @@
     const cacheManager = new CacheManager(logger);
     await cacheManager.init();
 
+    const webhookServer = new WebhookServer(logger, 3000);
+    webhookServer.init();
+    const twitchWebhook = new TwitchWebhook(logger, webhookServer);
+    await twitchWebhook.init();
+
     const connectorManager = new ConnectorManager();
 
-    const scio = new StandardConnectorIO(process.env.EXIT_COMMAND, dbManager, cacheManager, logger);
+    const scio = new StandardConnectorIO(process.env.EXIT_COMMAND, dbManager, cacheManager, webhookServer, logger);
     await scio.init();
     connectorManager.addConnector(scio);
 
