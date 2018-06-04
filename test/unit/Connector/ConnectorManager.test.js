@@ -1,9 +1,27 @@
 process.env.NODE_ENV = 'test';
 
 require('chai').should();
+require('')
 
 // Should mock the ConnectorManager class for further testing.
 const ConnectorManager = require('../../../lib/Connector/ConnectorManager');
+
+/* var event_api = {
+    startTime: function() {
+        return '123';
+    }
+}
+
+//code to test
+function getStartTime(e) {
+    return e.startTime();
+}
+
+var mock = sinon.mock(event_api);
+mock.expects("startTime").once();
+
+getStartTime(event_api);
+mock.verify(); */
 
 const connector = {
     setManager (connectorManager) {
