@@ -2,22 +2,30 @@ process.env.NODE_ENV = 'test';
 
 require('chai').should();
 
-// Should mock the ConnectorManager class for further testing.
 const ConnectorIO = require('../../../lib/Connector/ConnectorIO');
 
 describe('Unit: ConnectorIO', () => {
     describe('setManager', () => {
+        const ConnectorManager = {};
+
         it("'connectorManager' should match passed parameter", () => {
             const connector = new ConnectorIO();
-            const connectorManager = 'toto';
 
-            connector.setManager(connectorManager);
-            connector.connectorManager.should.be.equal(connectorManager);
+            connector.setManager(ConnectorManager);
+            connector.connectorManager.should.be.equal(ConnectorManager);
         });
+        // TODO : Cas d'erreur
     });
     describe('Parse Command', () => {
-        it('should return and array of two', () => {
-            ConnectorIO.parseCommand('!tata titi toto').should.be.an('object');
+        const command = '!tata titi toto';
+        const CommandResponse = {
+            commandName: 'tata',
+            args: {
+                _: ['titi', 'toto']}
+        };
+
+        it('should return an object type CommandResponse', () => {
+            ConnectorIO.parseCommand(command).should.be.an('object').and.deep.equal(CommandResponse);
         });
         it('should throw an error', () => {
             (() => {
@@ -26,15 +34,3 @@ describe('Unit: ConnectorIO', () => {
         });
     });
 });
-
-/* function iThrowError () {
-    throw new Error('Error thrown');
-}
-
-describe('The app', function () {
-    describe('this feature', function () {
-        it('is a function', function () {
-            iThrowError.should.throw(Error, 'Error thrown');
-        });
-    });
-}); */
