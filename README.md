@@ -18,10 +18,11 @@ What things you need to install the software and how to install them
 
 ### Installing
 
+* Go to the project dir : `cd nozomiBot`
 * Copy `.env.dist` to `.env` : `cp .env.dist .env`
 * Configure `.env` : `vim .env`
 * Set the rights to `var` (`1000` is the user `node` in the node container) : `setfacl -dR -m u:$(id -u):rwX -m u:1000:rwX var`
-* Install the dependencies : `yarn install`
+* Install the dependencies : `docker run -it --rm -u $(id -u):$(id -g) -v "$PWD":/app -w /app node:8-alpine yarn install`
 * Launch Docker containers :
     * development env : `docker-compose up -d`
     * production env : `docker stack deploy -c docker-compose.yml <name>`
