@@ -4,6 +4,7 @@
   "description": "A Twitch/Youtube/Discord bot",
   "main": "app.js",
   "dependencies": {
+    "body": "^5.1.0",
     "cross-env": "^5.1",
     "dotenv": "^5.0",
     "moment": "^2.22.2",
@@ -11,6 +12,7 @@
     "pino": "^4.17",
     "pino-syslog": "^1.2",
     "redis": "^2.8.0",
+    "request": "^2.87.0",
     "tmi.js": "^1.2",
     "yargs-parser": "^10.0"
   },

@@ -7,7 +7,8 @@
     const fs = require('fs');
 
     const logger = require('pino')({
-        extreme: false
+        extreme: false,
+        base: null,
     }, fs.createWriteStream(`./var/log/${process.env.NODE_ENV}.log`, {'flags': 'a'}));
 
     const DatabaseManager = require('./lib/Database/DatabaseManager');
@@ -27,18 +28,27 @@
     const TwitchConnectorIO = require('./lib/Connector/TwitchConnectorIO');
     const StaticCommandRepository = require('./lib/Database/Repository/StaticCommandRepository');
     const UserRepository = require('./lib/Database/Repository/UserRepository');
+    const StreamInfoRepository = require('./lib/Database/Repository/StreamInfoRepository');
+    const WebhookServer = require('./lib/Webhook/WebhookServer');
+    const TwitchWebhook = require('./lib/Webhook/TwitchWebhook');
 
     const dbManager = new DatabaseManager(logger);
     await dbManager.init();
     const staticCommandRepo = new StaticCommandRepository(dbManager);
     const userRepo = new UserRepository(dbManager);
+    const streamInfoRepository = new StreamInfoRepository(dbManager);
 
     const cacheManager = new CacheManager(logger);
     await cacheManager.init();
 
+    const webhookServer = new WebhookServer(logger, 3000);
+    webhookServer.init();
+    const twitchWebhook = new TwitchWebhook(logger, webhookServer, cacheManager, streamInfoRepository);
+    await twitchWebhook.init();
+
     const connectorManager = new ConnectorManager();
 
-    const scio = new StandardConnectorIO(process.env.EXIT_COMMAND, dbManager, cacheManager, logger);
+    const scio = new StandardConnectorIO(process.env.EXIT_COMMAND, dbManager, cacheManager, webhookServer, logger);
     await scio.init();
     connectorManager.addConnector(scio);
 
