@@ -1,7 +1,6 @@
 process.env.NODE_ENV = 'test';
 
 require('chai').should();
-require('')
 
 // Should mock the ConnectorManager class for further testing.
 const ConnectorManager = require('../../../lib/Connector/ConnectorManager');
