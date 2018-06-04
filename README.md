@@ -27,18 +27,6 @@ What things you need to install the software and how to install them
     * production env : `docker stack deploy -c docker-compose.yml <name>`
 * Use `docker container attach <containerid>` to put commands from the console. [See the official documentation](https://docs.docker.com/engine/reference/commandline/attach/#parent-command).
 
-## Running in dev
-
-`yarn dev`
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
 ## Built With
 
 * [Nodejs](https://nodejs.org/en/)
