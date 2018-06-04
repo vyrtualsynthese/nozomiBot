@@ -1,45 +1,45 @@
 process.env.NODE_ENV = 'test';
 
+const sinon = require('sinon');
 require('chai').should();
 
-// Should mock the ConnectorManager class for further testing.
 const ConnectorManager = require('../../../lib/Connector/ConnectorManager');
+const ConnectorIO = require('../../../lib/Connector/ConnectorIO');
 
-/* var event_api = {
-    startTime: function() {
-        return '123';
-    }
-}
-
-//code to test
-function getStartTime(e) {
-    return e.startTime();
-}
-
-var mock = sinon.mock(event_api);
-mock.expects("startTime").once();
-
-getStartTime(event_api);
-mock.verify(); */
-
-const connector = {
-    setManager (connectorManager) {
-        this.connectorManager = connectorManager;
-    }
-};
-
-describe('Unit: Manager', () => {
+describe('Unit: ConnectorManager', () => {
     describe('addconnector', () => {
+        const connector = new ConnectorIO();
+        const brokenConnector = {};
+
         it('Should call the methode setManager of the passed Object', () => {
             const connectorManager = new ConnectorManager();
             connectorManager.addConnector(connector);
             let buffer = connector.connectorManager;
             buffer.should.be.deep.equal(connectorManager);
         });
+        it('Should throw an error if passing a bad object', () => {
+            const connectorManager = new ConnectorManager();
+            (() => {
+                connectorManager.addConnector(brokenConnector);
+            }).should.throw(Error);
+        });
     });
     describe('newCommand', () => {
-        // TODO
-        it("Should emit en event named 'command' and an Object", () => {
+        const commandExchange = {};
+        const connectorManager = new ConnectorManager();
+
+        it('should get emitted events', function () {
+            const spy = sinon.spy(connectorManager, 'newCommand');
+
+            connectorManager.newCommand(commandExchange);
+            spy.restore();
+
+            spy.called.should.be.true;
+
+            connectorManager.on('command', (commandExchange) => {
+                commandExchange.should.be.deep.equal(commandExchange);
+            });
         });
+        // TODO : Finis le car d'erreur
     });
 });
