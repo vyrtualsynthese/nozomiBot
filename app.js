@@ -28,6 +28,7 @@
     const TwitchConnectorIO = require('./lib/Connector/TwitchConnectorIO');
     const StaticCommandRepository = require('./lib/Database/Repository/StaticCommandRepository');
     const UserRepository = require('./lib/Database/Repository/UserRepository');
+    const StreamInfoRepository = require('./lib/Database/Repository/StreamInfoRepository');
     const WebhookServer = require('./lib/Webhook/WebhookServer');
     const TwitchWebhook = require('./lib/Webhook/TwitchWebhook');
 
@@ -35,13 +36,14 @@
     await dbManager.init();
     const staticCommandRepo = new StaticCommandRepository(dbManager);
     const userRepo = new UserRepository(dbManager);
+    const streamInfoRepository = new StreamInfoRepository(dbManager);
 
     const cacheManager = new CacheManager(logger);
     await cacheManager.init();
 
     const webhookServer = new WebhookServer(logger, 3000);
     webhookServer.init();
-    const twitchWebhook = new TwitchWebhook(logger, webhookServer);
+    const twitchWebhook = new TwitchWebhook(logger, webhookServer, cacheManager, streamInfoRepository);
     await twitchWebhook.init();
 
     const connectorManager = new ConnectorManager();
