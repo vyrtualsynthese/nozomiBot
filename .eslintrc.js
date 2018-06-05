@@ -8,5 +8,6 @@ module.exports = {
         "semi": ["error", "always"],
         "operator-linebreak": ["error", "before"],
         "comma-dangle": ["error", "only-multiline"],
+        "linebreak-style": ["error", "unix"]
     }
 };
