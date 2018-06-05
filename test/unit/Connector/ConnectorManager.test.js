@@ -5,6 +5,7 @@ require('chai').should();
 
 const ConnectorManager = require('../../../lib/Connector/ConnectorManager');
 const ConnectorIO = require('../../../lib/Connector/ConnectorIO');
+const CommandExchange = require('../../../lib/Command/CommandExchange');
 
 describe('Unit: ConnectorManager', () => {
     describe('addconnector', () => {
@@ -14,32 +15,54 @@ describe('Unit: ConnectorManager', () => {
         it('Should call the methode setManager of the passed Object', () => {
             const connectorManager = new ConnectorManager();
             connectorManager.addConnector(connector);
-            let buffer = connector.connectorManager;
+            const buffer = connector.connectorManager;
             buffer.should.be.deep.equal(connectorManager);
         });
-        it('Should throw an error if passing a bad object', () => {
+        // TODO : Manger circulare dependances impots between ConnectorManager & ConnectorIO to check the type of addConnector Parameter.
+        /* it('Should throw an error if passing a bad object', () => {
             const connectorManager = new ConnectorManager();
             (() => {
-                connectorManager.addConnector(brokenConnector);
+                connectorManager.addConnector(connector);
             }).should.throw(Error);
-        });
+        }); */
     });
     describe('newCommand', () => {
-        const commandExchange = {};
-        const connectorManager = new ConnectorManager();
 
-        it('should get emitted events', function () {
-            const spy = sinon.spy(connectorManager, 'newCommand');
+        const connectorManager = new ConnectorManager();
+        const commandExchange = new CommandExchange();
+        const fakeObject = {};
+        const spy = sinon.spy(connectorManager, 'newCommand');
+
+        beforeEach(() => {
+            spy.resetHistory();
+        });
+
+        it("should get emitted events and emit an 'CommandExchange' object", () => {
 
             connectorManager.newCommand(commandExchange);
-            spy.restore();
 
+            spy.restore();
             spy.called.should.be.true;
 
+        });
+        it("should emit en event type command with an object typeof 'commandExchange'", () => {
             connectorManager.on('command', (commandExchange) => {
                 commandExchange.should.be.deep.equal(commandExchange);
             });
         });
-        // TODO : Finis le car d'erreur
+        it("should throw an error if a non 'CommandExchange' object is passed and should not emit event", () => {
+            (() => {
+                connectorManager.newCommand(fakeObject);
+            }).should.throw(Error);
+
+            spy.restore();
+            spy.called.should.be.false;
+
+        });
+        it("should not emit anything on error cases", () => {
+            connectorManager.on('command', (fakeObject) => {
+                commandExchange.should.be.undefined;
+            });
+        })
     });
 });
