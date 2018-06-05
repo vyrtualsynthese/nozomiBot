@@ -25,6 +25,7 @@
     const TitleCommand = require('./lib/Command/TitleCommand');
     const GameCommand = require('./lib/Command/GameCommand');
     const LastCommand = require('./lib/Command/LastCommand');
+    const UptimeCommand = require('./lib/Command/UptimeCommand');
     const TwitchConnectorIO = require('./lib/Connector/TwitchConnectorIO');
     const StaticCommandRepository = require('./lib/Database/Repository/StaticCommandRepository');
     const UserRepository = require('./lib/Database/Repository/UserRepository');
@@ -36,14 +37,14 @@
     await dbManager.init();
     const staticCommandRepo = new StaticCommandRepository(dbManager);
     const userRepo = new UserRepository(dbManager);
-    const streamInfoRepository = new StreamInfoRepository(dbManager);
+    const streamInfoRepo = new StreamInfoRepository(dbManager);
 
     const cacheManager = new CacheManager(logger);
     await cacheManager.init();
 
     const webhookServer = new WebhookServer(logger, 3000);
     webhookServer.init();
-    const twitchWebhook = new TwitchWebhook(logger, webhookServer, cacheManager, streamInfoRepository);
+    const twitchWebhook = new TwitchWebhook(logger, webhookServer, cacheManager, streamInfoRepo);
     await twitchWebhook.init();
 
     const connectorManager = new ConnectorManager();
@@ -66,6 +67,7 @@
     commandHandler.registerCommand(new TitleCommand(logger));
     commandHandler.registerCommand(new GameCommand(logger));
     commandHandler.registerCommand(new LastCommand(logger, userRepo));
+    commandHandler.registerCommand(new UptimeCommand(logger));
 
     console.log(`Nozomibot is running... command "${scio.exitCommand}" for quit.`);
 
