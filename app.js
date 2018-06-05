@@ -27,6 +27,7 @@
     const LastCommand = require('./lib/Command/LastCommand');
     const UptimeCommand = require('./lib/Command/UptimeCommand');
     const UsersCommand = require('./lib/Command/UsersCommand');
+    const ModsCommand = require('./lib/Command/ModsCommand');
     const TwitchConnectorIO = require('./lib/Connector/TwitchConnectorIO');
     const StaticCommandRepository = require('./lib/Database/Repository/StaticCommandRepository');
     const UserRepository = require('./lib/Database/Repository/UserRepository');
@@ -70,6 +71,7 @@
     commandHandler.registerCommand(new LastCommand(logger, userRepo));
     commandHandler.registerCommand(new UptimeCommand(logger));
     commandHandler.registerCommand(new UsersCommand(logger));
+    commandHandler.registerCommand(new ModsCommand(logger));
 
     console.log(`Nozomibot is running... command "${scio.exitCommand}" for quit.`);
 
