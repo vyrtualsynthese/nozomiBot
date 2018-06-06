@@ -4,6 +4,8 @@
   "description": "A Twitch/Youtube/Discord bot",
   "main": "app.js",
   "dependencies": {
+    "babel-plugin-istanbul": "^4.1.6",
+    "babel-register": "^6.26.0",
     "body": "^5.1.0",
     "cross-env": "^5.1",
     "dotenv": "^5.0",
@@ -17,11 +19,18 @@
     "tmi.js": "^1.2",
     "yargs-parser": "^10.0"
   },
+  "nyc": {
+    "require": [
+      "babel-register"
+    ],
+    "sourceMap": false,
+    "instrument": false
+  },
   "scripts": {
     "start": "node app.js",
     "dev": "cross-env NODE_ENV=dev nodemon app.js",
     "lint": "./node_modules/.bin/eslint **/*.js",
-    "test": "cross-env NODE_ENV=test istanbul --recursive cover node_modules/mocha/bin/_mocha -- --recursive",
+    "test": "cross-env NODE_ENV=test nyc --recursive --reporter=lcov --reporter=text --babel-cache mocha --recursive",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "devDependencies": {
