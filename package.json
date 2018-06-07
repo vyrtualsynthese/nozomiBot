@@ -1,6 +1,6 @@
 {
   "name": "nozomibot",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A Twitch/Youtube/Discord bot",
   "main": "app.js",
   "dependencies": {

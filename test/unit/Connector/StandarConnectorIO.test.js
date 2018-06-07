@@ -1,6 +1,7 @@
 process.env.NODE_ENV = 'test';
 
 require('chai').should();
+const sinon = require('sinon');
 
 const logger = require('pino')();
 
@@ -37,16 +38,6 @@ describe('Unit: StandardConnectorIO', () => {
 
         it('StandardConnectorIO should trow an Error with his constructor with exitCommand toto', () => {
             ( () => {let toto = new StandardConnectorIO('toto', dbManager, cacheManager, webhookServer, logger)}).should.throw(Error);
-        });
-    });
-    describe('init', () => {
-
-        it("should instantiate 'this.rl' with a readline object", (done) => {
-            const standardConnectorIO = new StandardConnectorIO();
-            standardConnectorIO.init().then((res) => {
-                assert.equal(200, res.statusCode);
-                done();
-            })
         });
     });
 });
