@@ -5,6 +5,7 @@ node_js:
 cache: yarn
 install:
   - yarn install
+  - yarn global add nyc
 
 # Following is used to create a mongo db user then run mongodb. This should be uncommented when Functionnal testing will be ready
 

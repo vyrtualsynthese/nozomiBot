@@ -24,14 +24,18 @@ What things you need to install the software and how to install them
 * Set the rights to `var` (`1000` is the user `node` in the node container) : `setfacl -dR -m u:$(id -u):rwX -m u:1000:rwX var`
 * Install the dependencies : `docker run -it --rm -u $(id -u):$(id -g) -v "$PWD":/app -w /app node:8-alpine yarn install`
 * Launch Docker containers :
-    * development env : `docker-compose up -d`
+    * development env : `docker-compose -f docker-compose.dev.yml up -d`
     * production env : `docker stack deploy -c docker-compose.yml <name>`
 * Use `docker container attach <containerid>` to put commands from the console. [See the official documentation](https://docs.docker.com/engine/reference/commandline/attach/#parent-command).
 
 ### Run Tests
-
+You will need nyc installed globally to check code coverage
+* `$ yarn global add nyc`
+To run the linter
 * `$ docker-compose exec node yarn lint`
+To run tests
 * `$ docker-compose exec node yarn test`
+To send code coverage report to coveralls service.
 * `$ docker-compose exec node yarn coveralls`
 
 ## Built With
