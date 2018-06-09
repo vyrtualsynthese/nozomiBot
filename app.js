@@ -14,6 +14,9 @@
     const DatabaseManager = require('./lib/Database/DatabaseManager');
     const CacheManager = require('./lib/CacheManager');
     const StandardConnectorIO = require('./lib/Connector/StandardConnectorIO');
+    const TwitchConnectorIO = require('./lib/Connector/TwitchConnectorIO');
+    const TwitchRefreshStreamInfoScheduler = require('./lib/Scheduler/TwitchRefreshStreamInfoScheduler');
+    const TwitchAPIHandler = require('./lib/APIHandler/TwitchAPIHandler');
     const ConnectorManager = require('./lib/Connector/ConnectorManager');
     const CommandHandler = require('./lib/Command/CommandHandler');
     const EchoCommand = require('./lib/Command/EchoCommand');
@@ -28,18 +31,20 @@
     const UptimeCommand = require('./lib/Command/UptimeCommand');
     const UsersCommand = require('./lib/Command/UsersCommand');
     const ModsCommand = require('./lib/Command/ModsCommand');
-    const TwitchConnectorIO = require('./lib/Connector/TwitchConnectorIO');
+    const PlaytimeCommand = require('./lib/Command/PlaytimeCommand');
     const StaticCommandRepository = require('./lib/Database/Repository/StaticCommandRepository');
     const UserRepository = require('./lib/Database/Repository/UserRepository');
     const StreamInfoRepository = require('./lib/Database/Repository/StreamInfoRepository');
+    const GameChangeRepository = require('./lib/Database/Repository/GameChangeRepository');
     const WebhookServer = require('./lib/Webhook/WebhookServer');
     const TwitchWebhook = require('./lib/Webhook/TwitchWebhook');
 
     const dbManager = new DatabaseManager(logger);
     await dbManager.init();
-    const staticCommandRepo = new StaticCommandRepository(dbManager);
-    const userRepo = new UserRepository(dbManager);
-    const streamInfoRepo = new StreamInfoRepository(dbManager);
+    const staticCommandRepo = new StaticCommandRepository();
+    const userRepo = new UserRepository();
+    const streamInfoRepo = new StreamInfoRepository();
+    const gameChangeRepo = new GameChangeRepository();
 
     const cacheManager = new CacheManager(logger);
     await cacheManager.init();
@@ -55,7 +60,11 @@
     await scio.init();
     connectorManager.addConnector(scio);
 
-    const tcio = new TwitchConnectorIO(logger, cacheManager, userRepo);
+    const twitchAPIHandler = new TwitchAPIHandler(logger, cacheManager);
+    const twitchRefreshStreamInfoScheduler = new TwitchRefreshStreamInfoScheduler(logger, twitchAPIHandler, gameChangeRepo);
+    await twitchRefreshStreamInfoScheduler.init();
+
+    const tcio = new TwitchConnectorIO(logger, userRepo);
     await tcio.init();
     connectorManager.addConnector(tcio);
 
@@ -66,12 +75,14 @@
     commandHandler.registerCommand(new ListCommandsCommand(logger, staticCommandRepo, commandHandler));
     commandHandler.registerCommand(new CreateStaticCommandCommand(logger, staticCommandRepo));
     commandHandler.registerCommand(new CommandsCommand(logger));
-    commandHandler.registerCommand(new TitleCommand(logger));
-    commandHandler.registerCommand(new GameCommand(logger));
+    commandHandler.registerCommand(new TitleCommand(logger, twitchAPIHandler));
+    commandHandler.registerCommand(new GameCommand(logger, twitchAPIHandler));
     commandHandler.registerCommand(new LastCommand(logger, userRepo));
-    commandHandler.registerCommand(new UptimeCommand(logger));
-    commandHandler.registerCommand(new UsersCommand(logger));
-    commandHandler.registerCommand(new ModsCommand(logger));
+    commandHandler.registerCommand(new UptimeCommand(logger, twitchAPIHandler));
+    commandHandler.registerCommand(new UsersCommand(logger, twitchAPIHandler));
+    commandHandler.registerCommand(new ModsCommand(logger, twitchAPIHandler));
+    commandHandler.registerCommand(new PlaytimeCommand(logger, gameChangeRepo, twitchAPIHandler));
+
 
     console.log(`Nozomibot is running... command "${scio.exitCommand}" for quit.`);
 

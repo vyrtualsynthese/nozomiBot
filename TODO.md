@@ -57,10 +57,8 @@ Cache avec Redis ? (ex : liste des 1000 derniers utilisateurs)
 * "!resume" pour enlever "pause"
 * "!mute" pour ne pas envoyer de réponse
 * "!unmute" pour enlever "mute"
-* "!users" pour avoir la liste des viewers
-* "!mods" pour avoir la liste des modos
-* "!timezone" donne la timezone du streamer
-* "!settimezone" modifie la timezone du streamer 
+* ~~"!users" pour avoir la liste des viewers~~
+* ~~"!mods" pour avoir la liste des modos~~ 
 * "!whispermode on/off" toutes les réponses sont envoyées en "whisper" à l'invoqueur
 * "!kill <target>" retourne "<invoqueur> a tué <target>!" (vérifier que target est bien un viewer/modo)
 * "!roll start/end <entier>" lance une roulette entre [[1, entier]]
