@@ -1,24 +1,60 @@
 {
   "name": "nozomibot",
-  "version": "0.0.1",
-  "description": "Ben c'est nozomibot quoi...",
+  "version": "0.0.2",
+  "description": "A Twitch/Youtube/Discord bot",
   "main": "app.js",
   "dependencies": {
-    "dotenv": "^5.0.1",
-    "tmi.js": "^1.2.1"
+    "babel-plugin-istanbul": "^4.1.6",
+    "babel-register": "^6.26.0",
+    "body": "^5.1.0",
+    "cross-env": "^5.1",
+    "dotenv": "^6.0.0",
+    "eslint-config-sinon": "^1.0.3",
+    "moment": "^2.22.2",
+    "mongoose": "^5.1",
+    "pino": "^4.17",
+    "pino-syslog": "^1.2",
+    "redis": "^2.8.0",
+    "request": "^2.87.0",
+    "tmi.js": "^1.2",
+    "yargs-parser": "^10.0"
+  },
+  "nyc": {
+    "require": [
+      "babel-register"
+    ],
+    "sourceMap": false,
+    "instrument": false
+  },
+  "scripts": {
+    "start": "node app.js",
+    "dev": "cross-env NODE_ENV=dev nodemon app.js",
+    "lint": "./node_modules/.bin/eslint **/*.js",
+    "test": "cross-env NODE_ENV=test nyc --recursive --reporter=lcov --reporter=text --babel-cache mocha --recursive",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
+    "coffee-coverage": "^3.0.0",
+    "coveralls": "^3.0.1",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
-    "nodemon": "^1.17.5"
+    "istanbul": "^0.4.5",
+    "mocha": "^5.2.0",
+    "mocha-lcov-reporter": "^1.3.0",
+    "nodemon": "^1.17.5",
+    "nyc": "^12.0.2",
+    "sinon": "^5.1.0"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Thomas Talbot <thomas.talbot@fauya.fr>",
-  "license": "ISC"
+  "author": "Valentin RONTEIX",
+  "contributors": [
+    {
+      "name": "Thomas TALBOT",
+      "email": "thomas.talbot@fauya.fr"
+    }
+  ]
 }

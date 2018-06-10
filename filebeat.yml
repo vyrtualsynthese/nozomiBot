@@ -1,0 +1,22 @@
+output:
+  logstash:
+    enabled: true
+    hosts:
+      - elk:5044
+    timeout: 15
+
+filebeat:
+  prospectors:
+    - type: log
+      enabled: true
+      paths:
+        - "/app/var/log/*.log"
+      tags: ["json"]
+      json:
+        keys_under_root: true
+        add_error_key: true
+        message_key: msg
+
+setup:
+  kibana:
+    host: elk:5601

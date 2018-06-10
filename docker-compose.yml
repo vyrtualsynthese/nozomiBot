@@ -1,0 +1,70 @@
+version: '3.5'
+networks:
+    app: ~
+volumes:
+    dbdata: ~
+#    cachedata: ~
+services:
+    node:
+        image: node:8-alpine
+        user: node
+        hostname: ${COMPOSE_PROJECT_NAME}-node
+        working_dir: /home/node/app
+        volumes:
+            - ./:/home/node/app
+        env_file:
+            - .env
+        networks:
+            - app
+        ports:
+            - 127.0.0.1:80:3000
+        stdin_open: true
+        tty: true
+        entrypoint: ["node", "app.js"]
+#        restart: unless-stopped
+        depends_on:
+          - mongo
+          - redis
+    mongo:
+        image: mongo:3.6
+        hostname: ${COMPOSE_PROJECT_NAME}-mongo
+        volumes:
+            - dbdata:/data/db
+        env_file:
+            - .env
+        networks:
+            - app
+        ports:
+            - 127.0.0.1:27017:27017
+        restart: unless-stopped
+    redis:
+        image: redis:4.0-alpine
+        hostname: ${COMPOSE_PROJECT_NAME}-redis
+#        volumes:
+#            - cachedata:/data
+#        command: "redis-server --appendonly yes"
+        networks:
+            - app
+        ports:
+            - 127.0.0.1:6379:6379
+        restart: unless-stopped
+#    elk:
+#        image: sebp/elk:624
+#        hostname: ${COMPOSE_PROJECT_NAME}-elk
+#        volumes:
+#            - ./logstash.conf:/etc/logstash/conf.d/02-beats-input.conf
+#        networks:
+#            - app
+#        ports:
+#            - 127.0.0.1:5601:5601 # Kibana web interface
+#            - 127.0.0.1:9200:9200 # ElasticSearch JSON interface
+#            - 127.0.0.1:5044:5044 # Logstash beats interface
+#    filebeat:
+#        image: docker.elastic.co/beats/filebeat:6.2.4
+#        volumes:
+#            - ./filebeat.yml:/usr/share/filebeat/filebeat.yml
+#            - ./:/app
+#        depends_on:
+#          - elk
+#        networks:
+#            - app
