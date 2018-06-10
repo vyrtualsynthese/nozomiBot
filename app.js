@@ -21,6 +21,7 @@
     const CommandHandler = require('./lib/Command/CommandHandler');
     const EchoCommand = require('./lib/Command/EchoCommand');
     const CreateStaticCommandCommand = require('./lib/Command/Commands/CreateStaticCommandCommand');
+    const RemoveStaticCommandCommand = require('./lib/Command/Commands/RemoveStaticCommandCommand');
     const ListStaticCommandsCommand = require('./lib/Command/Commands/ListStaticCommandsCommand');
     const ListCommandsCommand = require('./lib/Command/Commands/ListCommandsCommand');
     const CommandsCommand = require('./lib/Command/Commands/CommandsCommand');
@@ -74,6 +75,7 @@
     commandHandler.registerCommand(new ListStaticCommandsCommand(logger, staticCommandRepo));
     commandHandler.registerCommand(new ListCommandsCommand(logger, staticCommandRepo, commandHandler));
     commandHandler.registerCommand(new CreateStaticCommandCommand(logger, staticCommandRepo));
+    commandHandler.registerCommand(new RemoveStaticCommandCommand(logger, staticCommandRepo));
     commandHandler.registerCommand(new CommandsCommand(logger));
     commandHandler.registerCommand(new TitleCommand(logger, twitchAPIHandler));
     commandHandler.registerCommand(new GameCommand(logger, twitchAPIHandler));
