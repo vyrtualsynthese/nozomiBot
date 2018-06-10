@@ -1,6 +1,7 @@
 process.env.NODE_ENV = 'test';
 
 require('chai').should();
+const expect = require('chai').expect;
 
 const Command = require('../../../lib/Command/Command');
 const logger = require('pino')();
@@ -9,7 +10,7 @@ describe('Unit: Command', () => {
 
    describe('constructor', () => {
 
-       it('should instanciante the connector with passed parameters', () => {
+       it('should instanciate the Command with passed parameters', () => {
            const command = new Command('command', logger);
            command.name.should.be.equal('command');
            command.logger.should.be.deep.equal(logger.child({subject: 'Command'}));
@@ -39,7 +40,7 @@ describe('Unit: Command', () => {
     });
     describe('getAvailableConnectors', () => {
         it('should return null when called', () => {
-            // TODO : Waiting for refactor from Ioni. Should'nt return null !
+            expect(command2.getAvailableConnectors()).to.be.null;
         });
     });
     describe('supports', () => {

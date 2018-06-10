@@ -18,13 +18,6 @@ describe('Unit: ConnectorManager', () => {
             const buffer = connector.connectorManager;
             buffer.should.be.deep.equal(connectorManager);
         });
-        // TODO : Manger circulare dependances imports between ConnectorManager & ConnectorIO to check the type of addConnector Parameter thank you Ioio. Allez Salut !
-        /* it('Should throw an error if passing a bad object', () => {
-            const connectorManager = new ConnectorManager();
-            (() => {
-                connectorManager.addConnector(connector);
-            }).should.throw(Error);
-        }); */
     });
     describe('newCommand', () => {
 
