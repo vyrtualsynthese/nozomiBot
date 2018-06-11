@@ -34,6 +34,7 @@
     const ModsCommand = require('./lib/Command/ModsCommand');
     const PlaytimeCommand = require('./lib/Command/PlaytimeCommand');
     const PauseCommand = require('./lib/Command/PauseCommand');
+    const ResumeCommand = require('./lib/Command/ResumeCommand');
     const StaticCommandRepository = require('./lib/Database/Repository/StaticCommandRepository');
     const UserRepository = require('./lib/Database/Repository/UserRepository');
     const StreamInfoRepository = require('./lib/Database/Repository/StreamInfoRepository');
@@ -88,6 +89,7 @@
     commandHandler.registerCommand(new ModsCommand(logger, twitchAPIHandler));
     commandHandler.registerCommand(new PlaytimeCommand(logger, gameChangeRepo, twitchAPIHandler));
     commandHandler.registerCommand(new PauseCommand(logger, parametersRepo));
+    commandHandler.registerCommand(new ResumeCommand(logger, parametersRepo));
 
     console.log(`Nozomibot is running... command "${scio.exitCommand}" for quit.`);
 
