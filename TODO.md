@@ -51,7 +51,7 @@ Cache avec Redis ? (ex : liste des 1000 derniers utilisateurs)
 * ~~"!last" pour avoir les dernières connexions viewers~~
 * ~~"!game" pour avoir le nom du jeu actuel~~
 * ~~"!title" pour le titre du stream + nom du jeu si en live~~
-* "!playtime" pour le uptime du jeu actuel en live
+* ~~"!playtime" pour le uptime du jeu actuel en live~~
 * ~~"!uptime" pour le uptime total du live~~
 * "!pause" pour ne plus répondre aux commandes
 * "!resume" pour enlever "pause"

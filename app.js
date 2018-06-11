@@ -33,10 +33,13 @@
     const UsersCommand = require('./lib/Command/UsersCommand');
     const ModsCommand = require('./lib/Command/ModsCommand');
     const PlaytimeCommand = require('./lib/Command/PlaytimeCommand');
+    const PauseCommand = require('./lib/Command/PauseCommand');
+    const ResumeCommand = require('./lib/Command/ResumeCommand');
     const StaticCommandRepository = require('./lib/Database/Repository/StaticCommandRepository');
     const UserRepository = require('./lib/Database/Repository/UserRepository');
     const StreamInfoRepository = require('./lib/Database/Repository/StreamInfoRepository');
     const GameChangeRepository = require('./lib/Database/Repository/GameChangeRepository');
+    const ParametersRepository = require('./lib/Database/Repository/ParametersRepository');
     const WebhookServer = require('./lib/Webhook/WebhookServer');
     const TwitchWebhook = require('./lib/Webhook/TwitchWebhook');
 
@@ -46,6 +49,7 @@
     const userRepo = new UserRepository();
     const streamInfoRepo = new StreamInfoRepository();
     const gameChangeRepo = new GameChangeRepository();
+    const parametersRepo = new ParametersRepository();
 
     const cacheManager = new CacheManager(logger);
     await cacheManager.init();
@@ -69,7 +73,7 @@
     await tcio.init();
     connectorManager.addConnector(tcio);
 
-    const commandHandler = new CommandHandler(connectorManager, staticCommandRepo, logger);
+    const commandHandler = new CommandHandler(connectorManager, staticCommandRepo, logger, parametersRepo);
     commandHandler.registerCommand(new RandomCommand(logger));
     commandHandler.registerCommand(new EchoCommand(logger));
     commandHandler.registerCommand(new ListStaticCommandsCommand(logger, staticCommandRepo));
@@ -84,7 +88,8 @@
     commandHandler.registerCommand(new UsersCommand(logger, twitchAPIHandler));
     commandHandler.registerCommand(new ModsCommand(logger, twitchAPIHandler));
     commandHandler.registerCommand(new PlaytimeCommand(logger, gameChangeRepo, twitchAPIHandler));
-
+    commandHandler.registerCommand(new PauseCommand(logger, parametersRepo));
+    commandHandler.registerCommand(new ResumeCommand(logger, parametersRepo));
 
     console.log(`Nozomibot is running... command "${scio.exitCommand}" for quit.`);
 
