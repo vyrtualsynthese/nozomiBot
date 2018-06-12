@@ -65,7 +65,7 @@ describe('Unit: EchoCommand', () => {
 
     describe('handle', () => {
 
-        it(' should return true if passed command exchange is > 0 ', () => {
+        it(' should return a CommandResponse with the correct message ', () => {
 
             const name = 'toto';
             const args = {
@@ -76,16 +76,15 @@ describe('Unit: EchoCommand', () => {
             const recipient = 'synthese';
             const context = {};
 
-            console.log(connector);
-            const spy = sinon.spy(connector, "write");
-
-            const commandExchange = new CommandExchange(name, args, connector, sourceType, recipient, context);
+            const commandExchange = new CommandExchange(name, args, connector, sourceType, recipient, context, recipient);
 
             const echoCommand = new EchoCommand(logger);
-
-            echoCommand.handle(commandExchange);
-
-            spy.calledOnce.should.be.true;
+            echoCommand.handle(commandExchange).should.be.deep.equal({
+                message: 'tata titi',
+                destinationType: 'whisper',
+                recipient: 'synthese',
+                context: {},
+            });
 
         });
 
