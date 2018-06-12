@@ -55,15 +55,14 @@ Cache avec Redis ? (ex : liste des 1000 derniers utilisateurs)
 * ~~"!uptime" pour le uptime total du live~~
 * ~~"!pause" pour ne plus répondre aux commandes~~
 * ~~"!resume" pour enlever "pause"~~
-* "!mute" pour ne pas envoyer de réponse
-* "!unmute" pour enlever "mute"
+* ~~"!mute" pour ne pas envoyer de réponse~~
+* ~~"!unmute" pour enlever "mute"~~
 * ~~"!users" pour avoir la liste des viewers~~
 * ~~"!mods" pour avoir la liste des modos~~ 
 * "!whispermode on/off" toutes les réponses sont envoyées en "whisper" à l'invoqueur
-* "!kill <target>" retourne "<invoqueur> a tué <target>!" (vérifier que target est bien un viewer/modo)
-* "!roll start/end <entier>" lance une roulette entre [[1, entier]]
-* "!rollvote <entier> <mise>" voter sur le roll avec la mise
+* ~~"!kill <target>" retourne "<invoqueur> a tué <target>!" (vérifier que target est bien un viewer/modo)~~
 * ~~"!random <entier>" retourne un entier aléatoire entre [[1, entier]]~~
+* "!roulette <username connected>" roulette russe
 * "!bits on/off" active/désactive l'annonce lorsqu'il y a un don de bits
 * "!bitsmessage <message>" set le message qui sera affiché lorsqu'il y a un don en bits. Variables : %username%, %amount%
 * "!bitsminimum <entier>" set le nombre minimal de bits pour que le message soit affiché
