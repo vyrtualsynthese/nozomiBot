@@ -35,6 +35,7 @@
     const PlaytimeCommand = require('./lib/Command/PlaytimeCommand');
     const PauseCommand = require('./lib/Command/PauseCommand');
     const ResumeCommand = require('./lib/Command/ResumeCommand');
+    const KillCommand = require('./lib/Command/KillCommand');
     const StaticCommandRepository = require('./lib/Database/Repository/StaticCommandRepository');
     const UserRepository = require('./lib/Database/Repository/UserRepository');
     const StreamInfoRepository = require('./lib/Database/Repository/StreamInfoRepository');
@@ -69,7 +70,7 @@
     const twitchRefreshStreamInfoScheduler = new TwitchRefreshStreamInfoScheduler(logger, twitchAPIHandler, gameChangeRepo);
     await twitchRefreshStreamInfoScheduler.init();
 
-    const tcio = new TwitchConnectorIO(logger, userRepo);
+    const tcio = new TwitchConnectorIO(logger, userRepo, twitchAPIHandler);
     await tcio.init();
     connectorManager.addConnector(tcio);
 
@@ -90,6 +91,7 @@
     commandHandler.registerCommand(new PlaytimeCommand(logger, gameChangeRepo, twitchAPIHandler));
     commandHandler.registerCommand(new PauseCommand(logger, parametersRepo));
     commandHandler.registerCommand(new ResumeCommand(logger, parametersRepo));
+    commandHandler.registerCommand(new KillCommand(logger));
 
     console.log(`Nozomibot is running... command "${scio.exitCommand}" for quit.`);
 
