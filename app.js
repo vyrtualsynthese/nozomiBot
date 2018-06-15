@@ -59,8 +59,6 @@
 
     const webhookServer = new WebhookServer(logger, 3000);
     webhookServer.init();
-    const twitchWebhook = new TwitchWebhook(logger, webhookServer, cacheManager, streamInfoRepo);
-    await twitchWebhook.init();
 
     const connectorManager = new ConnectorManager();
 
@@ -75,6 +73,9 @@
     const tcio = new TwitchConnectorIO(logger, userRepo, twitchAPIHandler);
     await tcio.init();
     connectorManager.addConnector(tcio);
+
+    const twitchWebhook = new TwitchWebhook(logger, webhookServer, cacheManager, streamInfoRepo, tcio, twitchAPIHandler);
+    await twitchWebhook.init();
 
     const commandHandler = new CommandHandler(connectorManager, staticCommandRepo, logger, parametersRepo);
     commandHandler.registerCommand(new RandomCommand(logger));
