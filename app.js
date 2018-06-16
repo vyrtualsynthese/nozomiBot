@@ -38,6 +38,7 @@
     const KillCommand = require('./lib/Command/KillCommand');
     const MuteCommand = require('./lib/Command/MuteCommand');
     const UnmuteCommand = require('./lib/Command/UnmuteCommand');
+    const FollowsMessageCommand = require('./lib/Command/FollowsMessageCommand');
     const FollowsCommand = require('./lib/Command/FollowsCommand');
     const StaticCommandRepository = require('./lib/Database/Repository/StaticCommandRepository');
     const UserRepository = require('./lib/Database/Repository/UserRepository');
@@ -75,7 +76,7 @@
     await tcio.init();
     connectorManager.addConnector(tcio);
 
-    const twitchWebhook = new TwitchWebhook(logger, webhookServer, cacheManager, streamInfoRepo, tcio, twitchAPIHandler);
+    const twitchWebhook = new TwitchWebhook(logger, webhookServer, cacheManager, streamInfoRepo, tcio, twitchAPIHandler, parametersRepo);
     await twitchWebhook.init();
 
     const commandHandler = new CommandHandler(connectorManager, staticCommandRepo, logger, parametersRepo);
@@ -98,6 +99,7 @@
     commandHandler.registerCommand(new KillCommand(logger));
     commandHandler.registerCommand(new MuteCommand(logger, parametersRepo));
     commandHandler.registerCommand(new UnmuteCommand(logger, parametersRepo));
+    commandHandler.registerCommand(new FollowsMessageCommand(logger, parametersRepo));
     commandHandler.registerCommand(new FollowsCommand(logger, parametersRepo));
 
     console.log(`Nozomibot is running... command "${scio.exitCommand}" for quit.`);

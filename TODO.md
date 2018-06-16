@@ -76,9 +76,9 @@ Cache avec Redis ? (ex : liste des 1000 derniers utilisateurs)
 * "!streamerelements on/off" permet l'annonce ou pas les donateurs
 * "!streamerelementsmessage <message>" set l'annonce
 * "!streamerelementsminamount <float>" condition sur la donation pour afficher l'annonce
-* "!followers on/off" permet l'annonce ou pas des follows
-* "!followersmessage <message>" set l'annonce
-* "!followcheck <username>" infos sur le suivi de la chaîne à propos de <username>
+* ~~"!followers on/off" permet l'annonce ou pas des follows~~
+* ~~"!followers message <message>" set l'annonce~~
+* "!followers check <username>" infos sur le suivi de la chaîne à propos de <username>
 * "!gamescan <gamename>" donne les stats sur un jeu joué sur la chaîne (combien de temps passé?....)
 * "!gamewhisp on/off" permet l'annonce ou pas des subs
 * "!gamewhisp <message>" set l'annonce
