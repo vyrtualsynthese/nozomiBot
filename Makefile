@@ -28,7 +28,7 @@ tests:
 	make yarn c="test"
 
 yarn:
-	docker run --rm -it -u $(UID):$(GID) --env-file $(ROOT_DIR)/.env -v $(ROOT_DIR):/app -w /app --init node:8-alpine yarn $(c)
+	docker-compose exec node yarn $(c)
 yu:
 	make yarn c="upgrade $(c)"
 ya:
