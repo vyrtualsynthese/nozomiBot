@@ -6,9 +6,9 @@ volumes:
 #    cachedata: ~
 services:
     node:
-        image: node:8-alpine
+        image: node:10-alpine
         user: node
-        hostname: ${COMPOSE_PROJECT_NAME}-node
+        hostname: node
         working_dir: /home/node/app
         volumes:
             - ./:/home/node/app
@@ -27,7 +27,7 @@ services:
           - redis
     mongo:
         image: mongo:3.6
-        hostname: ${COMPOSE_PROJECT_NAME}-mongo
+        hostname: mongo
         volumes:
             - dbdata:/data/db
         env_file:
@@ -39,7 +39,7 @@ services:
         restart: unless-stopped
     redis:
         image: redis:4.0-alpine
-        hostname: ${COMPOSE_PROJECT_NAME}-redis
+        hostname: redis
 #        volumes:
 #            - cachedata:/data
 #        command: "redis-server --appendonly yes"
@@ -48,23 +48,3 @@ services:
         ports:
             - 127.0.0.1:6379:6379
         restart: unless-stopped
-#    elk:
-#        image: sebp/elk:624
-#        hostname: ${COMPOSE_PROJECT_NAME}-elk
-#        volumes:
-#            - ./logstash.conf:/etc/logstash/conf.d/02-beats-input.conf
-#        networks:
-#            - app
-#        ports:
-#            - 127.0.0.1:5601:5601 # Kibana web interface
-#            - 127.0.0.1:9200:9200 # ElasticSearch JSON interface
-#            - 127.0.0.1:5044:5044 # Logstash beats interface
-#    filebeat:
-#        image: docker.elastic.co/beats/filebeat:6.2.4
-#        volumes:
-#            - ./filebeat.yml:/usr/share/filebeat/filebeat.yml
-#            - ./:/app
-#        depends_on:
-#          - elk
-#        networks:
-#            - app
