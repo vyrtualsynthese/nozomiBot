@@ -38,6 +38,9 @@
     const KillCommand = require('./lib/Command/KillCommand');
     const MuteCommand = require('./lib/Command/MuteCommand');
     const UnmuteCommand = require('./lib/Command/UnmuteCommand');
+    const FollowsMessageCommand = require('./lib/Command/FollowsMessageCommand');
+    const FollowsCheckCommand = require('./lib/Command/FollowsCheckCommand');
+    const FollowsCommand = require('./lib/Command/FollowsCommand');
     const StaticCommandRepository = require('./lib/Database/Repository/StaticCommandRepository');
     const UserRepository = require('./lib/Database/Repository/UserRepository');
     const StreamInfoRepository = require('./lib/Database/Repository/StreamInfoRepository');
@@ -57,7 +60,7 @@
     const cacheManager = new CacheManager(logger);
     await cacheManager.init();
 
-    const webhookServer = new WebhookServer(logger, 3000);
+    const webhookServer = new WebhookServer(logger, process.env.WEBSERVER_PORT);
     webhookServer.init();
 
     const connectorManager = new ConnectorManager();
@@ -74,7 +77,7 @@
     await tcio.init();
     connectorManager.addConnector(tcio);
 
-    const twitchWebhook = new TwitchWebhook(logger, webhookServer, cacheManager, streamInfoRepo, tcio, twitchAPIHandler);
+    const twitchWebhook = new TwitchWebhook(logger, webhookServer, cacheManager, streamInfoRepo, tcio, twitchAPIHandler, parametersRepo);
     await twitchWebhook.init();
 
     const commandHandler = new CommandHandler(connectorManager, staticCommandRepo, logger, parametersRepo);
@@ -97,6 +100,9 @@
     commandHandler.registerCommand(new KillCommand(logger));
     commandHandler.registerCommand(new MuteCommand(logger, parametersRepo));
     commandHandler.registerCommand(new UnmuteCommand(logger, parametersRepo));
+    commandHandler.registerCommand(new FollowsMessageCommand(logger, parametersRepo));
+    commandHandler.registerCommand(new FollowsCheckCommand(logger, twitchAPIHandler));
+    commandHandler.registerCommand(new FollowsCommand(logger, parametersRepo));
 
     console.log(`Nozomibot is running... command "${scio.exitCommand}" for quit.`);
 
