@@ -60,7 +60,7 @@
     const cacheManager = new CacheManager(logger);
     await cacheManager.init();
 
-    const webhookServer = new WebhookServer(logger, 3000);
+    const webhookServer = new WebhookServer(logger, process.env.WEBSERVER_PORT);
     webhookServer.init();
 
     const connectorManager = new ConnectorManager();

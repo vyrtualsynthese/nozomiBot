@@ -1,50 +1,40 @@
 version: '3.5'
-networks:
-    app: ~
 volumes:
     dbdata: ~
-#    cachedata: ~
 services:
     node:
         image: node:10-alpine
         user: node
         hostname: node
-        working_dir: /home/node/app
+        working_dir: /app
         volumes:
-            - ./:/home/node/app
-        env_file:
-            - .env
-        networks:
-            - app
+            - ./:/app
         ports:
-            - 127.0.0.1:80:3000
+            - 127.0.0.1:3000:3000
         stdin_open: true
         tty: true
         entrypoint: ["node", "app.js"]
-#        restart: unless-stopped
         depends_on:
           - mongo
           - redis
     mongo:
-        image: mongo:3.6
+        image: mongo:4.0-xenial
         hostname: mongo
         volumes:
             - dbdata:/data/db
         env_file:
             - .env
-        networks:
-            - app
         ports:
             - 127.0.0.1:27017:27017
-        restart: unless-stopped
     redis:
-        image: redis:4.0-alpine
+        image: redis:5-alpine
         hostname: redis
-#        volumes:
-#            - cachedata:/data
-#        command: "redis-server --appendonly yes"
-        networks:
-            - app
         ports:
             - 127.0.0.1:6379:6379
-        restart: unless-stopped
+    redis-commander:
+        image: rediscommander/redis-commander:latest
+        hostname: redis-commander
+        environment:
+            - REDIS_HOSTS=local:redis:6379
+        ports:
+            - 127.0.0.1:8081:8081
