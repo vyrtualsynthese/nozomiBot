@@ -16,7 +16,6 @@ services:
         entrypoint: ["node", "app.js"]
         depends_on:
           - mongo
-          - redis
     mongo:
         image: mongo:4.0-xenial
         hostname: mongo
@@ -26,15 +25,3 @@ services:
             - .env
         ports:
             - 127.0.0.1:27017:27017
-    redis:
-        image: redis:5-alpine
-        hostname: redis
-        ports:
-            - 127.0.0.1:6379:6379
-    redis-commander:
-        image: rediscommander/redis-commander:latest
-        hostname: redis-commander
-        environment:
-            - REDIS_HOSTS=local:redis:6379
-        ports:
-            - 127.0.0.1:8081:8081
