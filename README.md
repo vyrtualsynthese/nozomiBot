@@ -17,8 +17,9 @@ What things you need to install the software and how to install them
 
 ### Installing
 
-TODO: Installing on Local as prod then separate wiki page for deploy in remote server environnement.
-
+First run : `docker run --rm -it -v $PWD:/app -w /app -u $(id -u):$(id -g) node yarn`
+Then edit the docker-compose.override
+Then run the app `docker-compose up`
 ## Built With
 
 * [Nodejs](https://nodejs.org/en/)

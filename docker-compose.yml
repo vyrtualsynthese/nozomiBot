@@ -4,9 +4,6 @@ volumes:
 services:
     node:
         build: .
-        command: yarn start dev
-        volumes:
-            - ./:/usr/scr/app
         ports:
             - 127.0.0.1:3000:3000
         stdin_open: true

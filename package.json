@@ -28,7 +28,7 @@
   },
   "scripts": {
     "start": "node app.js",
-    "dev": "cross-env NODE_ENV=dev nodemon app.js",
+    "dev": "nodemon app.js",
     "lint": "./node_modules/.bin/eslint **/*.js"
   },
   "devDependencies": {

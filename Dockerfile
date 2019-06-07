@@ -17,6 +17,7 @@ COPY yarn.lock .
 COPY . .
 
 RUN yarn install
+RUN yarn global add nodemon
 # If you are building your code for production
 # RUN npm ci --only=production
 
