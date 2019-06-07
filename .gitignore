@@ -2,8 +2,11 @@
 node_modules
 .env
 /var
+!/var/log/.gitkeep
 /coverage
 yarn-error.log
 package-lock.json
 .nyc_output
 /docker-compose.override.yml
+/db/*
+!/db/.gitkeep
