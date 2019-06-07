@@ -2,3 +2,5 @@ version: '3.5'
 services:
     node:
         command: "yarn dev"
+        volumes:
+            - ./:/usr/src/app

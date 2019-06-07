@@ -11,7 +11,7 @@ services:
         depends_on:
           - mongo
     mongo:
-        image: mongo:4.0-xenial
+        image: mongo:xenial
         hostname: mongo
         volumes:
             - dbdata:/data/db
@@ -20,7 +20,7 @@ services:
         ports:
             - 127.0.0.1:27017:27017
     redis:
-        image: redis:5-alpine
+        image: redis:alpine
         hostname: redis
         ports:
             - 127.0.0.1:6379:6379

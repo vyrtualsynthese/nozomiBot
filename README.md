@@ -13,24 +13,21 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them
 
 * [Docker](https://docs.docker.com/install/)
-* [Yarn](https://yarnpkg.com/lang/en/docs/install/)
+* [Docker Compose](https://docs.docker.com/compose/install/)
 
-### Installing
+### Installing for Prod
 
-First run : `docker run --rm -it -v $PWD:/app -w /app -u $(id -u):$(id -g) node yarn`
-Then edit the docker-compose.override
-Then run the app `docker-compose up`
+* Just run : `docker-compose up -d`
+
+### Installing in dev
+
+* First run : `docker run --rm -it -v $PWD:/app -w /app -u $(id -u):$(id -g) node yarn`
+* Then uncomment and edit docker-compose.override if needed
+* Then run the app `docker-compose up -d`
+
 ## Built With
 
 * [Nodejs](https://nodejs.org/en/)
-
-## Contributing
-
-Please read [Contribution Wiki Page](https://github.com/vyrtualsynthese/nozomiBot/wiki/Contributor-Guide) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
 ## Authors
 
