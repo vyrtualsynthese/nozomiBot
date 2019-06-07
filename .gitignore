@@ -2,7 +2,6 @@
 node_modules
 .env
 /var
-!/var/log/.gitkeep
 /coverage
 yarn-error.log
 package-lock.json

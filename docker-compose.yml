@@ -3,17 +3,14 @@ volumes:
     dbdata: ~
 services:
     node:
-        image: node:10-alpine
-        user: node
-        hostname: node
-        working_dir: /app
+        build: .
+        command: yarn start dev
         volumes:
-            - ./:/app
+            - ./:/usr/scr/app
         ports:
             - 127.0.0.1:3000:3000
         stdin_open: true
         tty: true
-        entrypoint: ["node", "app.js"]
         depends_on:
           - mongo
     mongo:
