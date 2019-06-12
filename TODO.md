@@ -51,19 +51,18 @@ Cache avec Redis ? (ex : liste des 1000 derniers utilisateurs)
 * ~~"!last" pour avoir les dernières connexions viewers~~
 * ~~"!game" pour avoir le nom du jeu actuel~~
 * ~~"!title" pour le titre du stream + nom du jeu si en live~~
-* "!playtime" pour le uptime du jeu actuel en live
+* ~~"!playtime" pour le uptime du jeu actuel en live~~
 * ~~"!uptime" pour le uptime total du live~~
-* "!pause" pour ne plus répondre aux commandes
-* "!resume" pour enlever "pause"
-* "!mute" pour ne pas envoyer de réponse
-* "!unmute" pour enlever "mute"
+* ~~"!pause" pour ne plus répondre aux commandes~~
+* ~~"!resume" pour enlever "pause"~~
+* ~~"!mute" pour ne pas envoyer de réponse~~
+* ~~"!unmute" pour enlever "mute"~~
 * ~~"!users" pour avoir la liste des viewers~~
 * ~~"!mods" pour avoir la liste des modos~~ 
 * "!whispermode on/off" toutes les réponses sont envoyées en "whisper" à l'invoqueur
-* "!kill <target>" retourne "<invoqueur> a tué <target>!" (vérifier que target est bien un viewer/modo)
-* "!roll start/end <entier>" lance une roulette entre [[1, entier]]
-* "!rollvote <entier> <mise>" voter sur le roll avec la mise
+* ~~"!kill <target>" retourne "<invoqueur> a tué <target>!" (vérifier que target est bien un viewer/modo)~~
 * ~~"!random <entier>" retourne un entier aléatoire entre [[1, entier]]~~
+* "!roulette <username connected>" roulette russe
 * "!bits on/off" active/désactive l'annonce lorsqu'il y a un don de bits
 * "!bitsmessage <message>" set le message qui sera affiché lorsqu'il y a un don en bits. Variables : %username%, %amount%
 * "!bitsminimum <entier>" set le nombre minimal de bits pour que le message soit affiché
@@ -77,9 +76,9 @@ Cache avec Redis ? (ex : liste des 1000 derniers utilisateurs)
 * "!streamerelements on/off" permet l'annonce ou pas les donateurs
 * "!streamerelementsmessage <message>" set l'annonce
 * "!streamerelementsminamount <float>" condition sur la donation pour afficher l'annonce
-* "!followers on/off" permet l'annonce ou pas des follows
-* "!followersmessage <message>" set l'annonce
-* "!followcheck <username>" infos sur le suivi de la chaîne à propos de <username>
+* ~~"!followers on/off" permet l'annonce ou pas des follows~~
+* ~~"!followers message <message>" set l'annonce~~
+* "!followers check <username>" infos sur le suivi de la chaîne à propos de <username>
 * "!gamescan <gamename>" donne les stats sur un jeu joué sur la chaîne (combien de temps passé?....)
 * "!gamewhisp on/off" permet l'annonce ou pas des subs
 * "!gamewhisp <message>" set l'annonce

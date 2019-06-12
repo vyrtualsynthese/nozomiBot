@@ -1,13 +1,13 @@
 'use strict';
 
 (async () => {
-    require('dotenv').load();
+    require('dotenv').config();
     if (!process.env.NODE_ENV) { process.env.NODE_ENV = 'prod'; }
 
     const fs = require('fs');
 
+    // TODO: Restore extreme mod !
     const logger = require('pino')({
-        extreme: false,
         base: null,
     }, fs.createWriteStream(`./var/log/${process.env.NODE_ENV}.log`, {'flags': 'a'}));
 
@@ -33,10 +33,19 @@
     const UsersCommand = require('./lib/Command/UsersCommand');
     const ModsCommand = require('./lib/Command/ModsCommand');
     const PlaytimeCommand = require('./lib/Command/PlaytimeCommand');
+    const PauseCommand = require('./lib/Command/PauseCommand');
+    const ResumeCommand = require('./lib/Command/ResumeCommand');
+    const KillCommand = require('./lib/Command/KillCommand');
+    const MuteCommand = require('./lib/Command/MuteCommand');
+    const UnmuteCommand = require('./lib/Command/UnmuteCommand');
+    const FollowsMessageCommand = require('./lib/Command/FollowsMessageCommand');
+    const FollowsCheckCommand = require('./lib/Command/FollowsCheckCommand');
+    const FollowsCommand = require('./lib/Command/FollowsCommand');
     const StaticCommandRepository = require('./lib/Database/Repository/StaticCommandRepository');
     const UserRepository = require('./lib/Database/Repository/UserRepository');
     const StreamInfoRepository = require('./lib/Database/Repository/StreamInfoRepository');
     const GameChangeRepository = require('./lib/Database/Repository/GameChangeRepository');
+    const ParametersRepository = require('./lib/Database/Repository/ParametersRepository');
     const WebhookServer = require('./lib/Webhook/WebhookServer');
     const TwitchWebhook = require('./lib/Webhook/TwitchWebhook');
 
@@ -46,14 +55,13 @@
     const userRepo = new UserRepository();
     const streamInfoRepo = new StreamInfoRepository();
     const gameChangeRepo = new GameChangeRepository();
+    const parametersRepo = new ParametersRepository();
 
     const cacheManager = new CacheManager(logger);
     await cacheManager.init();
 
-    const webhookServer = new WebhookServer(logger, 3000);
+    const webhookServer = new WebhookServer(logger, process.env.WEBSERVER_PORT);
     webhookServer.init();
-    const twitchWebhook = new TwitchWebhook(logger, webhookServer, cacheManager, streamInfoRepo);
-    await twitchWebhook.init();
 
     const connectorManager = new ConnectorManager();
 
@@ -65,11 +73,14 @@
     const twitchRefreshStreamInfoScheduler = new TwitchRefreshStreamInfoScheduler(logger, twitchAPIHandler, gameChangeRepo);
     await twitchRefreshStreamInfoScheduler.init();
 
-    const tcio = new TwitchConnectorIO(logger, userRepo);
+    const tcio = new TwitchConnectorIO(logger, userRepo, twitchAPIHandler);
     await tcio.init();
     connectorManager.addConnector(tcio);
 
-    const commandHandler = new CommandHandler(connectorManager, staticCommandRepo, logger);
+    const twitchWebhook = new TwitchWebhook(logger, webhookServer, cacheManager, streamInfoRepo, tcio, twitchAPIHandler, parametersRepo);
+    await twitchWebhook.init();
+
+    const commandHandler = new CommandHandler(connectorManager, staticCommandRepo, logger, parametersRepo);
     commandHandler.registerCommand(new RandomCommand(logger));
     commandHandler.registerCommand(new EchoCommand(logger));
     commandHandler.registerCommand(new ListStaticCommandsCommand(logger, staticCommandRepo));
@@ -84,7 +95,14 @@
     commandHandler.registerCommand(new UsersCommand(logger, twitchAPIHandler));
     commandHandler.registerCommand(new ModsCommand(logger, twitchAPIHandler));
     commandHandler.registerCommand(new PlaytimeCommand(logger, gameChangeRepo, twitchAPIHandler));
-
+    commandHandler.registerCommand(new PauseCommand(logger, parametersRepo));
+    commandHandler.registerCommand(new ResumeCommand(logger, parametersRepo));
+    commandHandler.registerCommand(new KillCommand(logger));
+    commandHandler.registerCommand(new MuteCommand(logger, parametersRepo));
+    commandHandler.registerCommand(new UnmuteCommand(logger, parametersRepo));
+    commandHandler.registerCommand(new FollowsMessageCommand(logger, parametersRepo));
+    commandHandler.registerCommand(new FollowsCheckCommand(logger, twitchAPIHandler));
+    commandHandler.registerCommand(new FollowsCommand(logger, parametersRepo));
 
     console.log(`Nozomibot is running... command "${scio.exitCommand}" for quit.`);
 
