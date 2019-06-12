@@ -8,6 +8,8 @@ services:
         tty: true
         depends_on:
           - mongo
+          - redis
+          - redis-commander
     mongo:
         image: mongo:xenial
         hostname: mongo
@@ -22,6 +24,8 @@ services:
         hostname: redis
         ports:
             - 127.0.0.1:6379:6379
+        depends_on:
+          - mongo
     redis-commander:
         image: rediscommander/redis-commander:latest
         hostname: redis-commander
@@ -29,3 +33,5 @@ services:
             - REDIS_HOSTS=local:redis:6379
         ports:
             - 127.0.0.1:8081:8081
+        depends_on:
+          - redis
