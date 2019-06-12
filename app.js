@@ -1,13 +1,13 @@
 'use strict';
 
 (async () => {
-    require('dotenv').load();
+    require('dotenv').config();
     if (!process.env.NODE_ENV) { process.env.NODE_ENV = 'prod'; }
 
     const fs = require('fs');
 
+    // TODO: Restore extreme mod !
     const logger = require('pino')({
-        extreme: false,
         base: null,
     }, fs.createWriteStream(`./var/log/${process.env.NODE_ENV}.log`, {'flags': 'a'}));
 
