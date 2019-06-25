@@ -1,5 +1,3 @@
-[![Greenkeeper badge](https://badges.greenkeeper.io/vyrtualsynthese/nozomiBot.svg)](https://greenkeeper.io/) [![Build Status](https://travis-ci.org/vyrtualsynthese/nozomiBot.svg?branch=master)](https://travis-ci.org/vyrtualsynthese/nozomiBot) [![Coverage Status](https://coveralls.io/repos/github/vyrtualsynthese/nozomiBot/badge.svg?branch=master)](https://coveralls.io/github/vyrtualsynthese/nozomiBot?branch=master)
-
 # NozomiBot
 
 This is a project for a Twitch/Youtube/Discord bot. Despite other bots, this one focus on easy setup and ready to use.
