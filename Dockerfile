@@ -1,7 +1,5 @@
 FROM node:lts-alpine
 
-
-
 # Create app directory
 WORKDIR /usr/src/app
 

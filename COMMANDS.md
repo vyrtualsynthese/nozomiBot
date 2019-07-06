@@ -1,2 +1,0 @@
-# Liste des Commandes Nozomibot
-+ 

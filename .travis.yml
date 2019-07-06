@@ -1,7 +1,7 @@
 language: node_js
 sudo: false
 node_js:
-  - "8"
+  - "10"
 cache: yarn
 install:
   - yarn install
@@ -20,7 +20,6 @@ env:
     - EXIT_COMMAND=exit
 script:
   - yarn lint
-  - yarn test
 
 # Following is for activity tracking over Discord Webhook.
 
