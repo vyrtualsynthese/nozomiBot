@@ -1,21 +1,21 @@
 {
   "name": "nozomibot",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A Twitch/Youtube/Discord bot",
   "main": "app.js",
   "dependencies": {
-    "babel-register": "^6.26.0",
-    "body": "^5.1.0",
-    "cross-env": "^5.2",
-    "dotenv": "^8.0.0",
-    "moment": "^2.24",
-    "mongoose": "^5.5",
-    "pino": "^5.12",
-    "pino-syslog": "^1.2",
-    "redis": "^2.8.0",
-    "request": "^2.88",
-    "tmi.js": "^1.4",
-    "twitch": "^2.2.7",
+    "babel-register": "^6",
+    "body": "^5",
+    "cross-env": "^5",
+    "dotenv": "^8",
+    "moment": "^2",
+    "mongoose": "^5",
+    "pino": "^5",
+    "pino-syslog": "^1",
+    "redis": "^2",
+    "request": "^2",
+    "tmi.js": "^1",
+    "twitch": "^3",
     "yargs-parser": "^13"
   },
   "scripts": {
@@ -24,13 +24,13 @@
     "lint": "./node_modules/.bin/eslint **/*.js"
   },
   "devDependencies": {
-    "eslint": "^5.16",
-    "eslint-config-standard": "^12.0.0",
-    "eslint-plugin-import": "^2.17",
-    "eslint-plugin-node": "^9.1",
-    "eslint-plugin-promise": "^4.1",
-    "eslint-plugin-standard": "^4.0",
-    "nodemon": "^1.19"
+    "eslint": "^6",
+    "eslint-config-standard": "^12",
+    "eslint-plugin-import": "^2",
+    "eslint-plugin-node": "^9",
+    "eslint-plugin-promise": "^4",
+    "eslint-plugin-standard": "^4",
+    "nodemon": "^1"
   },
   "author": "Valentin RONTEIX",
   "contributors": [
