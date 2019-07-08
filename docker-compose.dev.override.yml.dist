@@ -5,6 +5,8 @@ services:
         ports:
             - 127.0.0.1:3000:3000
             - 127.0.0.1:9229:9229
+        volumes:
+            - ./:/usr/src/app
     mongo:
         ports:
             - 127.0.0.1:27017:27017
