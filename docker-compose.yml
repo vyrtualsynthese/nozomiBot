@@ -2,36 +2,27 @@ version: '3.5'
 services:
     node:
         build: .
-        ports:
-            - 127.0.0.1:3000:3000
         stdin_open: true
         tty: true
         depends_on:
-          - mongo
-          - redis
-          - redis-commander
+            - mongo
+            - redis
     mongo:
-        image: mongo:xenial
+        image: mongo:4.0-xenial
         hostname: mongo
         volumes:
-            - ./db:/data/db
+            - data-volume:/data/db
         env_file:
             - .env
-        ports:
-            - 127.0.0.1:27017:27017
     redis:
-        image: redis:alpine
+        image: redis:5.0-alpine
+        volumes:
+            - data-volume:/data
         hostname: redis
-        ports:
-            - 127.0.0.1:6379:6379
-        depends_on:
-          - mongo
     redis-commander:
         image: rediscommander/redis-commander:latest
         hostname: redis-commander
-        environment:
-            - REDIS_HOSTS=local:redis:6379
-        ports:
-            - 127.0.0.1:8081:8081
         depends_on:
-          - redis
+            - redis
+volumes:
+    data-volume:

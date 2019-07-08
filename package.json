@@ -4,7 +4,6 @@
   "description": "A Twitch/Youtube/Discord bot",
   "main": "app.js",
   "dependencies": {
-    "babel-register": "^6",
     "body": "^5",
     "cross-env": "^5",
     "dotenv": "^8",

@@ -1,8 +1,10 @@
 version: '3.5'
 services:
     node:
+        command: "yarn run dev"
         ports:
             - 127.0.0.1:3000:3000
+            - 127.0.0.1:9229:9229
     mongo:
         ports:
             - 127.0.0.1:27017:27017
