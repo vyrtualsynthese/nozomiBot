@@ -8,14 +8,14 @@ services:
             - mongo
             - redis
     mongo:
-        image: mongo:4.0-xenial
+        image: mongo:4.0.12-xenial
         hostname: mongo
         volumes:
             - data-volume:/data/db
         env_file:
             - .env
     redis:
-        image: redis:5.0-alpine
+        image: redis:5.0.5-alpine
         volumes:
             - data-volume:/data
         hostname: redis

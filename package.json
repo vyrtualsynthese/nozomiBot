@@ -4,18 +4,18 @@
   "description": "A Twitch/Youtube/Discord bot",
   "main": "app.js",
   "dependencies": {
-    "body": "^5",
-    "cross-env": "^5",
-    "dotenv": "^8",
-    "moment": "^2",
-    "mongoose": "^5",
-    "pino": "^5",
-    "pino-syslog": "^1",
-    "redis": "^2",
-    "request": "^2",
-    "tmi.js": "^1",
-    "twitch": "^3",
-    "yargs-parser": "^13"
+    "body": "^5.1.0",
+    "cross-env": "^5.2.0",
+    "dotenv": "^8.0.0",
+    "moment": "^2.24.0",
+    "mongoose": "^5.6.9",
+    "pino": "^5.13.2",
+    "pino-syslog": "^1.2.1",
+    "redis": "^2.8.0",
+    "request": "^2.88.0",
+    "tmi.js": "^1.4.5",
+    "twitch": "^3.4.1",
+    "yargs-parser": "^13.1.1"
   },
   "scripts": {
     "start": "node app.js",
@@ -23,13 +23,13 @@
     "lint": "./node_modules/.bin/eslint **/*.js"
   },
   "devDependencies": {
-    "eslint": "^6",
-    "eslint-config-standard": "^12",
-    "eslint-plugin-import": "^2",
-    "eslint-plugin-node": "^9",
-    "eslint-plugin-promise": "^4",
-    "eslint-plugin-standard": "^4",
-    "nodemon": "^1"
+    "eslint": "^6.1.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "nodemon": "^1.19.1"
   },
   "author": "Valentin RONTEIX",
   "contributors": [
